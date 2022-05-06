@@ -82,7 +82,23 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+
+        // find the tail of A
+        // set head of B as tail of A
+
+        //base case
+        if(A==null){
+            return B;
+        }else if(B==null){
+            return A;
+        }
+
+        IntList A_tail = A;
+        while(A_tail.rest != null) {
+            A_tail = A_tail.rest;
+        }
+        A_tail.rest = B;
+        return A;
     }
 
     /**
@@ -91,7 +107,33 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        if(A==null){
+            return B;
+        }
+        if(B==null){
+            return A;
+        }
+
+        IntList newListHead = new IntList(A.first, null);
+        IntList newListTail = newListHead;
+        IntList A_tail = A;
+        IntList B_tail = B;
+        while(A_tail.rest != null){
+            A_tail = A_tail.rest;
+            newListTail.rest = new IntList(A_tail.first, null);
+            newListTail = newListTail.rest;
+        }
+
+        newListTail.rest = new IntList(B.first, null);
+        newListTail = newListTail.rest;
+
+        while(B_tail.rest != null){
+            B_tail = B_tail.rest;
+            newListTail.rest = new IntList(B_tail.first, null);
+            newListTail = newListTail.rest;
+        }
+
+        return newListHead;
     }
 
 
