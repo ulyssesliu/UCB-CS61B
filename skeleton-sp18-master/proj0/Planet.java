@@ -82,7 +82,7 @@ public class Planet {
 
     public static void draw(Planet[] pArr, double R){
         for (Planet p : pArr){
-            StdDraw.picture(p.xxPos/R, p.yyPos/R, "images/" + p.imgFileName);
+            StdDraw.picture(p.xxPos/2/R + 0.5, p.yyPos/2/R + 0.5, "images/" + p.imgFileName);
         }
     }
     

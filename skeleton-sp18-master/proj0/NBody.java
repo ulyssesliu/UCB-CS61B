@@ -57,7 +57,7 @@ public class NBody {
             StdDraw.show();
             StdDraw.pause(10);
 
-            runtime+=dt;
+            runtime+=10000;
         }
 
         
