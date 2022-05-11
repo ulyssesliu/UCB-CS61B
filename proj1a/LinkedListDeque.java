@@ -24,12 +24,24 @@ public class LinkedListDeque<T> {
     // methods
     public int size(){return size;}
     public void addFirst(T item){
-        sentinel.next = new Node(item, sentinel, sentinel.next);
+        if(size==0){
+            sentinel.next = new Node(item, sentinel, sentinel);
+            sentinel.prev = sentinel.next;
+        } else{
+            sentinel.next = new Node(item, sentinel, sentinel.next);
+            sentinel.next.next.prev = sentinel.next;
+        }
         size++;
     }
 
     public void addLast(T item){
-        sentinel.prev = new Node(item, sentinel.prev, sentinel);
+        if(size==0){
+            sentinel.prev = new Node(item, sentinel, sentinel);
+            sentinel.next = sentinel.prev;
+        } else{
+            sentinel.prev = new Node(item, sentinel.prev, sentinel);
+            sentinel.prev.prev.next = sentinel.prev;
+        }
         size++;
     }
 
@@ -51,24 +63,48 @@ public class LinkedListDeque<T> {
         if(size <= 0)
             return null;
 
-        T buf = sentinel.next.item;
-        Node nodeBuf = sentinel.next; // need to set it as null for GC
-        sentinel.next = sentinel.next.next;
-        nodeBuf = null;
-        size--;
-        return buf;
+        if(size==1){
+            T buf = sentinel.next.item;
+            Node nodeBuf = sentinel.next;
+            sentinel.prev = sentinel.next = sentinel;
+            nodeBuf = null;
+            size--;
+            return buf;
+        }
+        else{
+            T buf = sentinel.next.item;
+            Node nodeBuf = sentinel.next; // need to set it as null for GC
+            sentinel.next = sentinel.next.next;
+            sentinel.next.prev = sentinel;
+            nodeBuf = null;
+            size--;
+            return buf;
+        }
+
     }
 
     public T removeLast(){
         if(size <= 0)
             return null;
 
-        T buf = sentinel.prev.item;
-        Node nodeBuf = sentinel.prev;
-        sentinel.prev = sentinel.prev.prev;
-        nodeBuf = null;
-        size--;
-        return buf;
+        if(size==1){ // the same as removeFirst()
+            T buf = sentinel.next.item;
+            Node nodeBuf = sentinel.next;
+            sentinel.prev = sentinel.next = sentinel;
+            nodeBuf = null;
+            size--;
+            return buf;
+        }
+        else{
+            T buf = sentinel.prev.item;
+            Node nodeBuf = sentinel.prev;
+            sentinel.prev = sentinel.prev.prev;
+            sentinel.prev.next = sentinel;
+            nodeBuf = null;
+            size--;
+            return buf;
+        }
+
     }
 
     public T get(int index){
