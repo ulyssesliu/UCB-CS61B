@@ -48,6 +48,9 @@ public class LinkedListDeque<T> {
     }
 
     public T removeFirst(){
+        if(size <= 0)
+            return null;
+
         T buf = sentinel.next.item;
         Node nodeBuf = sentinel.next; // need to set it as null for GC
         sentinel.next = sentinel.next.next;
@@ -57,6 +60,9 @@ public class LinkedListDeque<T> {
     }
 
     public T removeLast(){
+        if(size <= 0)
+            return null;
+
         T buf = sentinel.prev.item;
         Node nodeBuf = sentinel.prev;
         sentinel.prev = sentinel.prev.prev;
