@@ -29,7 +29,7 @@ public class Palindrome {
         return true;
     }
 
-    public boolean isPalindromeRec(String word){
+    private boolean isPalindromeRec(String word){
         Deque<Character> dq = wordToDeque(word);
         return isPalindromeRecHelper(dq);
     }

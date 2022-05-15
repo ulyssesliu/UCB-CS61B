@@ -25,9 +25,9 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome(pstr1));
         assertFalse(palindrome.isPalindrome(str2));
         assertFalse(palindrome.isPalindrome("cat"));
-        assertTrue(palindrome.isPalindromeRec(pstr1));
-        assertFalse(palindrome.isPalindromeRec(str2));
-        assertFalse(palindrome.isPalindromeRec("cat"));
+//        assertTrue(palindrome.isPalindromeRec(pstr1));
+//        assertFalse(palindrome.isPalindromeRec(str2));
+//        assertFalse(palindrome.isPalindromeRec("cat"));
 
         OffByOne obo = new OffByOne();
         assertTrue(palindrome.isPalindrome("flake",obo));
