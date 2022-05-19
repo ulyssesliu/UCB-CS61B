@@ -8,16 +8,11 @@ public class Room {
     private static int MAX_WIDTH = 10;
     private static int MAX_HEIGHT = 10;
 
-    private int width;
-    private int height;
-    private int xDoorPos; // position of doors on the Room
-    private int yDoorPos;
+    final int width;
+    final int height;
+    final int xDoorPos; // position of doors on the Room
+    final int yDoorPos;
 
-
-    /*TODO: constructor
-      1. generate a random Room with random size and position, with random door layout (can't be too large or conflict with boundary)
-      2. generate a room of given size and pos
-     */
     public Room(){ // the default offset is (0,0), the default size is also 0;
         this.width = 0;
         this.height = 0;
@@ -64,11 +59,9 @@ public class Room {
         System.out.println("Just initialized the xDoorPos and yDoorPos, which are: " + this.xDoorPos + " , " + this.yDoorPos + ".\n");
         this.checkParaValidity();
     }
-
     public void printInfo(){
         System.out.println("width: " + this.width + " height: " + this.height + " xDoorPos: " + this.xDoorPos + " yDoorPos； " + this.yDoorPos);
     }
-
     private void checkParaValidity(){
         if(this.width < 0 || this.height < 0){
             if( (this.xDoorPos < 0 || this.xDoorPos > MAX_WIDTH) || (this.yDoorPos < 0 || this.yDoorPos > MAX_HEIGHT) ){
