@@ -2,8 +2,8 @@ package byog.Core;
 
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
-
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Dungeon {
     int width;
@@ -27,13 +27,7 @@ public class Dungeon {
         }
     }
 
-    // TODO: Test whether the Room can fit into the given map (2d Tile array)
-    public boolean isConflict(Room newRoom){
-        return !((this.width > newRoom.width + newRoom.xDoorPos) && (this.height > newRoom.height + newRoom.yDoorPos));
-    }
-
-    // TODO(done): Add a new room to the dungeonMap (after it passes the test.)
-    public void addRoom(Room newRoom){
+    public void addRoom(Room newRoom){// TODO(done): Add a new room to the dungeonMap (after it passes the test.)
         if(isConflict(newRoom)){
             return;
         }
@@ -51,6 +45,10 @@ public class Dungeon {
 
     }
 
+
+    private boolean isConflict(Room newRoom){// TODO (done): Test whether the Room can fit into the given map (2d Tile array)
+        return !((this.width > newRoom.width + newRoom.xDoorPos) && (this.height > newRoom.height + newRoom.yDoorPos));
+    }
     private void addRoomToMap(Room newRoom){
         // fill the floors
         for(int xOff = 1; xOff < newRoom.width - 1; xOff++){
@@ -74,5 +72,14 @@ public class Dungeon {
     private void addRoomToList(Room newRoom){
         this.roomList.add(newRoom);
     }
+
+    private int[] getRandomOffset(Random random){ // get random offsets xOff and yOff
+        int[] offSet = new int[2];
+        offSet[0] = RandomUtils.uniform(random, this.width-3);
+        offSet[1] = RandomUtils.uniform(random, this.height-3);
+        return offSet;
+    }
+
+
 
 }
