@@ -31,7 +31,7 @@ public class Room {
         System.out.println("Just initialized the xDoorPos and yDoorPos, which are: " + this.xDoorPos + " , " + this.yDoorPos + ".\n");
         this.checkParaValidity();
     }
-    public Room(Random random){
+    public Room(Random random){ // TODO:
         this.width = 1 + RandomUtils.uniform(random, MAX_WIDTH);
         this.height = 1 +  RandomUtils.uniform(random, MAX_HEIGHT);
         System.out.println("Just initialized the width and height, which are: " + this.width + " , " + this.height + ".");

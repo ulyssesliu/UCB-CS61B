@@ -1,5 +1,6 @@
 package byog.Core;
 
+import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ public class Dungeon {
         this.width = width;
         this.height = height;
         this.isConnected = false;
+        roomList = new ArrayList<Room>();
+
         dungeonMap = new TETile[width][height];
         // fill the dungeonMap with void block
         for(int i = 0; i < width; i++){
@@ -34,6 +37,13 @@ public class Dungeon {
         }
         addRoomToMap(newRoom, offSet);
         addRoomToList(newRoom);
+    }
+
+    public void renderDungeon(TERenderer renderer){
+        if(this.dungeonMap == null){
+            throw new IllegalStateException("The worldMap is Null!");
+        }
+        renderer.renderFrame(this.dungeonMap);
     }
 
     // TODO: connect the discrete distributed Rooms in dungeonMap.
