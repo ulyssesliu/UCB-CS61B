@@ -71,17 +71,23 @@ public class Dungeon {
         // fill the walls
         // the upper and lower walls
         for(int xOff = 0; xOff < newRoom.width; xOff++){
-            this.dungeonMap[xOff + offSet[0]][offSet[1]] = Tileset.WALL; // lower wall
-            this.dungeonMap[xOff + offSet[0]][offSet[1] + newRoom.height - 1] = Tileset.WALL; // upper wall
+            if(this.dungeonMap[xOff + offSet[0]][offSet[1]] == Tileset.VOID) // use if-control to merge the rooms (not overlap)
+                this.dungeonMap[xOff + offSet[0]][offSet[1]] = Tileset.WALL; // lower wall
+            if(this.dungeonMap[xOff + offSet[0]][offSet[1] + newRoom.height - 1] == Tileset.VOID)
+                this.dungeonMap[xOff + offSet[0]][offSet[1] + newRoom.height - 1] = Tileset.WALL; // upper wall
+
         }
         // the left and right walls
         for(int yOff = 1; yOff < newRoom.height - 1; yOff++){
-            this.dungeonMap[offSet[0]][yOff + offSet[1]] = Tileset.WALL; // left wall
-            this.dungeonMap[offSet[0] + newRoom.width - 1][yOff + offSet[1]] = Tileset.WALL; // right wall
+            if(this.dungeonMap[offSet[0]][yOff + offSet[1]] == Tileset.VOID)
+                this.dungeonMap[offSet[0]][yOff + offSet[1]] = Tileset.WALL; // left wall
+            if(this.dungeonMap[offSet[0] + newRoom.width - 1][yOff + offSet[1]] == Tileset.VOID)
+                this.dungeonMap[offSet[0] + newRoom.width - 1][yOff + offSet[1]] = Tileset.WALL; // right wall
         }
 
         // fill the doors
-        this.dungeonMap[newRoom.xDoorPos + offSet[0]][newRoom.yDoorPos + offSet[1]] = Tileset.UNLOCKED_DOOR;
+        if(this.dungeonMap[newRoom.xDoorPos + offSet[0]][newRoom.yDoorPos + offSet[1]] == Tileset.WALL)
+            this.dungeonMap[newRoom.xDoorPos + offSet[0]][newRoom.yDoorPos + offSet[1]] = Tileset.UNLOCKED_DOOR;
     }
     private void addRoomToList(Room newRoom){
         this.roomList.add(newRoom);
