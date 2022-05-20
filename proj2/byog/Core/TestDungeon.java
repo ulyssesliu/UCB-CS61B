@@ -6,18 +6,22 @@ import java.util.Random;
 
 public class TestDungeon {
     public static void main(String[] args) {
-        int WORLD_WIDTH = 50;
-        int WORLD_HEIGHT = 50;
+        int WORLD_WIDTH = 100;
+        int WORLD_HEIGHT = 70;
         Random random = new Random();
 
-        // initilize a renderer
+        // initialize a renderer
         TERenderer renderer = new TERenderer();
         renderer.initialize(WORLD_WIDTH,WORLD_HEIGHT);
 
         // instantiate a dungeon and a room, then add the room to the dungeon.
         Dungeon dungeon = new Dungeon(WORLD_WIDTH,WORLD_HEIGHT);
-        Room r1 = new Room(random);
-        dungeon.addRoom(r1, random);
+
+        // addRoom ten times
+        for(int i = 0; i < 20; i++){
+            Room newRoom = new Room(random);
+            dungeon.addRoom(newRoom, random);
+        }
 
         dungeon.renderDungeon(renderer);
     }

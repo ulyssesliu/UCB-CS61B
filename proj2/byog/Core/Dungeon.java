@@ -32,6 +32,7 @@ public class Dungeon {
     
     public void addRoom(Room newRoom, Random random){// TODO(done): Add a new room to the dungeonMap (after it passes the test.)
         int[] offSet = getRandomOffset(random);
+        System.out.println("Offsets: xOff: " + offSet[0] + " yOff: " + offSet[1]);
         if(isConflict(newRoom, offSet)){
             return;
         }
@@ -78,6 +79,9 @@ public class Dungeon {
             this.dungeonMap[offSet[0]][yOff + offSet[1]] = Tileset.WALL; // left wall
             this.dungeonMap[offSet[0] + newRoom.width - 1][yOff + offSet[1]] = Tileset.WALL; // right wall
         }
+
+        // fill the doors
+        this.dungeonMap[newRoom.xDoorPos + offSet[0]][newRoom.yDoorPos + offSet[1]] = Tileset.UNLOCKED_DOOR;
     }
     private void addRoomToList(Room newRoom){
         this.roomList.add(newRoom);
@@ -85,8 +89,8 @@ public class Dungeon {
     
     private int[] getRandomOffset(Random random){ // get random offsets xOff and yOff
         int[] offSet = new int[2];
-        offSet[0] = RandomUtils.uniform(random, this.width-3);
-        offSet[1] = RandomUtils.uniform(random, this.height-3);
+        offSet[0] = (int)(this.width/5) + RandomUtils.uniform(random, (int)(3*this.width/5));
+        offSet[1] = (int)(this.height/5) + RandomUtils.uniform(random, (int)(3*this.height/5));
         return offSet;
     }
 
