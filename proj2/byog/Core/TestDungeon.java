@@ -18,10 +18,10 @@ public class TestDungeon {
         Dungeon dungeon = new Dungeon(WORLD_WIDTH,WORLD_HEIGHT);
 
         // addRoom ten times
-        for(int i = 0; i < 20; i++){
-            Room newRoom = new Room(random);
-            dungeon.addRoom(newRoom, random);
+        for(int i = 0; i < 5; i++){;
+            dungeon.addRoom(random);
         }
+        dungeon.connect();
 
         dungeon.renderDungeon(renderer);
     }

@@ -9,7 +9,6 @@ import java.util.Random;
 public class Dungeon {
     int width;
     int height;
-    boolean isConnected;
     private TETile[][] dungeonMap; //
 
     private ArrayList<Room> roomList; // List to store added rooms;
@@ -18,7 +17,6 @@ public class Dungeon {
     public Dungeon(int width, int height) {
         this.width = width;
         this.height = height;
-        this.isConnected = false;
         roomList = new ArrayList<Room>();
 
         dungeonMap = new TETile[width][height];
@@ -30,8 +28,9 @@ public class Dungeon {
         }
     }
     
-    public void addRoom(Room newRoom, Random random){// TODO(done): Add a new room to the dungeonMap (after it passes the test.)
+    public void addRoom(Random random){
         int[] offSet = getRandomOffset(random);
+        Room newRoom = new Room(random, offSet);
         System.out.println("Offsets: xOff: " + offSet[0] + " yOff: " + offSet[1]);
         if(isConflict(newRoom, offSet)){
             return;
@@ -48,12 +47,113 @@ public class Dungeon {
     }
 
     // TODO: connect the discrete distributed Rooms in dungeonMap.
-    private void connect(){
+    public void connect(){
+        int listSize = this.roomList.size();
+        for(int x = 0; x < listSize-1; x++){
+            for(int y = x + 1; y < listSize; y++){
+                connectTwoRooms(roomList.get(x),roomList.get(y));
+            }
+        }
     }
 
-    // TODO: sort the rooms in the list by their xOff
-    private void sortRooms(){
+    private void connectTwoRooms(Room r1, Room r2){
 
+        // get the door positions
+        int x1, y1, x2, y2;
+        if(r1.xDoorPos > r2.xDoorPos){
+            x2 = r1.xDoorPos + r1.xOff;
+            y2 = r1.yDoorPos + r1.yOff;
+            x1 = r2.xDoorPos + r2.xOff;
+            y1 = r2.yDoorPos + r2.yOff;
+        } else if(r1.xDoorPos < r2.xDoorPos){
+            x1 = r1.xDoorPos + r1.xOff;
+            y1 = r1.yDoorPos + r1.yOff;
+            x2 = r2.xDoorPos + r2.xOff;
+            y2 = r2.yDoorPos + r2.yOff;
+        } else{
+            if(r1.yDoorPos == r2.yDoorPos)
+                return;
+            else if(r1.yDoorPos > r2.yDoorPos){
+                x2 = r1.xDoorPos + r1.xOff;
+                y2 = r1.yDoorPos + r1.yOff;
+                x1 = r2.xDoorPos + r2.xOff;
+                y1 = r2.yDoorPos + r2.yOff;
+            }else {
+                x1 = r1.xDoorPos + r1.xOff;
+                y1 = r1.yDoorPos + r1.yOff;
+                x2 = r2.xDoorPos + r2.xOff;
+                y2 = r2.yDoorPos + r2.yOff;
+            }
+        }
+
+        // build the hallway (not change the DOOR tiles)
+        if(y2 > y1){ // type 1: right door is higher
+            // fill the walls
+            for(int x = x1; x <= x2+1; x++){
+                for(int y = y1-1; y <= y1+1; y++){
+                    if(dungeonMap[x][y] != Tileset.FLOOR || dungeonMap[x][y] != Tileset.UNLOCKED_DOOR)
+                        dungeonMap[x][y] = Tileset.WALL;
+                }
+            }
+            for(int x = x2-1; x<= x2+1; x++){
+                for(int y = y1+2; y <= y2; y++){
+                    if(dungeonMap[x][y] != Tileset.FLOOR || dungeonMap[x][y] != Tileset.UNLOCKED_DOOR)
+                        dungeonMap[x][y] = Tileset.WALL;
+                }
+            }
+            // fill the floors
+            for(int x=x1; x<=x2; x++){
+                if(dungeonMap[x][y1] != Tileset.UNLOCKED_DOOR)
+                    dungeonMap[x][y1] = Tileset.FLOOR;
+            }
+            for(int y=y1+1; y <= y2; y++){
+                if(dungeonMap[x2][y] != Tileset.UNLOCKED_DOOR)
+                    dungeonMap[x2][y] = Tileset.FLOOR;
+            }
+
+        } else if(y2 == y1){ // type 2: two door same level
+            // fill the walls
+            for(int x = x1; x <= x2; x++){
+                for(int y = y1-1; y<= y1+1; y++){
+                    if(dungeonMap[x][y] != Tileset.FLOOR || dungeonMap[x][y] != Tileset.UNLOCKED_DOOR)
+                        dungeonMap[x][y] = Tileset.WALL;
+                }
+            }
+
+            // fill the floors
+            for(int x = x1; x <= x2; x++){
+                if(dungeonMap[x][y1] != Tileset.UNLOCKED_DOOR)
+                    dungeonMap[x][y1] = Tileset.FLOOR;
+            }
+
+
+        } else{ // type 3: right door is lower
+
+            // fill the walls
+            for(int x = x1-1; x <= x2; x++){
+                for(int y = y2-1; y <= y2+1; y++){
+                    if(dungeonMap[x][y] != Tileset.FLOOR || dungeonMap[x][y] != Tileset.UNLOCKED_DOOR)
+                        dungeonMap[x][y] = Tileset.WALL;
+                }
+            }
+            for(int x = x1-1; x<= x1+1; x++){
+                for(int y = y2+2; y <= y1; y++){
+                    if(dungeonMap[x][y] != Tileset.FLOOR || dungeonMap[x][y] != Tileset.UNLOCKED_DOOR)
+                        dungeonMap[x][y] = Tileset.WALL;
+                }
+            }
+
+            // fill the floors
+            for(int x=x1; x<=x2; x++){
+                if(dungeonMap[x][y2] != Tileset.UNLOCKED_DOOR)
+                    dungeonMap[x][y2] = Tileset.FLOOR;
+            }
+            for(int y=y2+1; y <= y1; y++){
+                if(dungeonMap[x1][y] != Tileset.UNLOCKED_DOOR)
+                    dungeonMap[x1][y] = Tileset.FLOOR;
+            }
+
+        }
     }
 
     
@@ -99,5 +199,4 @@ public class Dungeon {
         offSet[1] = (int)(this.height/5) + RandomUtils.uniform(random, (int)(3*this.height/5));
         return offSet;
     }
-
 }

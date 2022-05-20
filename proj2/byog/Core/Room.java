@@ -12,6 +12,8 @@ public class Room {
     final int height;
     final int xDoorPos; // position of doors on the Room
     final int yDoorPos;
+    int xOff;
+    int yOff;
 
     public Room(){ // the default offset is (0,0), the default size is also 0;
         this.width = 0;
@@ -31,7 +33,7 @@ public class Room {
         System.out.println("Just initialized the xDoorPos and yDoorPos, which are: " + this.xDoorPos + " , " + this.yDoorPos + ".\n");
         this.checkParaValidity();
     }
-    public Room(Random random){
+    public Room(Random random, int[] offSet){
         this.width = 5 + RandomUtils.uniform(random, MAX_WIDTH-5);
         this.height = 5 +  RandomUtils.uniform(random, MAX_HEIGHT-5);
         System.out.println("Just initialized the width and height, which are: " + this.width + " , " + this.height + ".");
@@ -54,6 +56,10 @@ public class Room {
             yPosBuff = (this.height-1)*RandomUtils.uniform(random, 2);
         }
         this.yDoorPos = yPosBuff;
+
+        // set the xOff in the Map
+        this.xOff = offSet[0];
+        this.yOff = offSet[1];
 
         System.out.println("Just initialized the xDoorPos and yDoorPos, which are: " + this.xDoorPos + " , " + this.yDoorPos + ".\n");
         this.checkParaValidity();
@@ -102,6 +108,4 @@ public class Room {
             throw new IllegalStateException("The sizes are out of boundary!");
         }
     }
-
-
 }
