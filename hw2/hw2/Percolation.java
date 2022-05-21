@@ -6,6 +6,7 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 public class Percolation {
     private final int size;
     private int openBlockNum;
+    private boolean isPercolated;
     private final int HEAD_SOURCE_INDEX;
     private final boolean[] openBlockList;
     private final WeightedQuickUnionUF unionUF;
@@ -19,6 +20,8 @@ public class Percolation {
         }
         openBlockList[N*N] = true; // the head source is set to be open
         openBlockNum = 0;
+        // the isPercolated
+        this.isPercolated = false;
         // the union find set
         unionUF = new WeightedQuickUnionUF(N*N+1); // 0-N^2-1 is for blocks, N^2 is for head source
         // the head source index
@@ -103,6 +106,4 @@ public class Percolation {
     public static void main(String[] args) { // use for unit testing (not required)
 
     }
-
-
 }
