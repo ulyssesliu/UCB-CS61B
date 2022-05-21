@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/UCB-CS61B.iml" filepath="$PROJECT_DIR$/UCB-CS61B.iml" />
+      <module fileurl="file://$PROJECT_DIR$/skeleton-sp18-master/lab2/lab2.iml" filepath="$PROJECT_DIR$/skeleton-sp18-master/lab2/lab2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/skeleton-sp18-master/lab3/lab3.iml" filepath="$PROJECT_DIR$/skeleton-sp18-master/lab3/lab3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/skeleton-sp18-master/proj3/src/main/main.iml" filepath="$PROJECT_DIR$/skeleton-sp18-master/proj3/src/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/skeleton-sp18-master/skeleton-sp18-master.iml" filepath="$PROJECT_DIR$/skeleton-sp18-master/skeleton-sp18-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/skeleton-sp18-master/proj3/src/test/test.iml" filepath="$PROJECT_DIR$/skeleton-sp18-master/proj3/src/test/test.iml" />
+    </modules>
+  </component>
+</project>
