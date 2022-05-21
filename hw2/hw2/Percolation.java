@@ -52,7 +52,31 @@ public class Percolation {
         return this.size * row + col;
     }
     private void connectWithOpenNeighbour(int row, int col){
-        // TODO: judge whether the block is on the boundary
+        if(row == 0){ // TODO: upper boundary
+            if(col == 0){ // TODO: upper left corner
+
+            } else if (col == this.size-1){ // TODO: upper right corner
+
+            } else{ // TODO: in middle in row
+
+            }
+        } else if(row == this.size-1){ // TODO: lower boundary
+            if(col == 0){ // TODO: lower left corner
+
+            } else if (col == this.size-1){ // TODO: lower right corner
+
+            } else{ // TODO: in middle in row
+
+            }
+        } else if(col == 0){ // TODO: in middle of left column
+
+        } else if(col == this.size-1){ // TODO: in middle of right column
+
+        } else{ // TODO: when the block is not on the boundary
+
+        }
+
+
     }
     public static void main(String[] args)   // use for unit testing (not required)
 
